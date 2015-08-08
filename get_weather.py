@@ -17,7 +17,7 @@ hourint=0
 
 
 startindex=0
-
+t0=int(time.time())
 
 while True:
     char = webpage.read(1)
@@ -43,7 +43,7 @@ while True:
                         hourint=ast.literal_eval(hour)
                         hourint=int(hourint)
                         print "The current hour is %d" %hourint
-  
+                        print t0
     # If we come across the "pop" element
     if char=='p':
         if webpage.read(1)=='o':
