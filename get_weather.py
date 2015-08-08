@@ -11,15 +11,41 @@ import ast
 webpage = urllib2.urlopen('http://api.wunderground.com/api/5744462c8bb77ed7/hourly/q/28.600000,-81.199997.json')
 firstdigit="0"
 fullnumber="0"
+hourdigit1="0"
+hour="0"
+hourint
+
+poplist[24]
+startindex=0
+
 
 while True:
-    c = webpage.read(1)
-    if not c:
-         c = webpage.read(1)
-    if not c:
+    char = webpage.read(1)
+    
+    # If the end of the file has been reached, stop scanning
+    if not char:
       print "End of file"
       break
-    if c=='p':
+  
+    # When we come across the "hour" element
+    if char=='h':
+        if webpage.read(1)=='o':
+            if webpage.read(1)=='u':
+                if webpage.read(1)=='r':
+                    if webpage.read(1)=='\"':
+                        webpage.read(3)
+                        hourdigit1 = webpage.read(1)
+                        test=webpage.read(1)
+                        if test !="\"":
+                            hour=hourdigit1+test
+                        else:
+                            hour=hourdigit1
+                        hourint=ast.literal_eval(hour)
+                        hourint=int(hourint)
+                        print "The current hour is %d" %hourint
+  
+    # If we come across the "pop" element
+    if char=='p':
         if webpage.read(1)=='o':
                 if webpage.read(1)=='p':
                         webpage.read(4)
