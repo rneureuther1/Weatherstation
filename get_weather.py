@@ -15,7 +15,7 @@ hourdigit1="0"
 hour="0"
 hourint=0
 
-poplist[24]
+poplist[24]=0
 startindex=0
 
 
