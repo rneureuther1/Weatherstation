@@ -22,7 +22,7 @@ t0=int(time.time())
 while t0%10!=0:
     t0=int(time.time())
     time.sleep(1)
-    print t0
+    print time.ctime()
 
 while True:
     char = webpage.read(1)
