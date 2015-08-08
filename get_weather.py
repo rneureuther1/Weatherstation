@@ -26,8 +26,10 @@ while True:
                         firstdigit = webpage.read(1)
                         test = webpage.read(1)
                         if test !="\"":
-                                fullnumber=firstdigit+test
-                                print fullnumber
+                            fullnumber=firstdigit+test
+                        else:
+                            fullnumber=firstdigit
+                        print fullnumber
 
 
 convert = ast.literal_eval(fullnumber)
