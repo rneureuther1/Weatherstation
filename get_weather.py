@@ -6,27 +6,35 @@ import json
 import urllib
 import urllib2
 import sys
+import ast
 
 webpage = urllib2.urlopen('http://api.wunderground.com/api/5744462c8bb77ed7/hou$
-print "First Read"
-print webpage.read(3)
-print "Second Read"
-print webpage.read(10)
-print "Third Read"
-print webpage.read(20)
-
-print sys.getsizeof(webpage)
+firstdigit="0"
+seconddigit="0"
 
 while True:
     c = webpage.read(1)
+    if not c:
+         c = webpage.read(1)
     if not c:
       print "End of file"
       break
     if c=='p':
         if webpage.read(1)=='o':
                 if webpage.read(1)=='p':
-                        print webpage.read(7)
+                        webpage.read(4)
+                        firstdigit = webpage.read(1)
+                        print firstdigit
+                        test = webpage.read(1)
+                        if test !="\"":
+                                seconddigit=firstdigit+test
+                                print seconddigit
 
+convert = ast.literal_eval(seconddigit)
+convert = int(convert)
+convert = ast.literal_eval(seconddigit)
+convert = int(convert)
+print "Last digit plus two is %d" %(convert+2)
 
 
 
