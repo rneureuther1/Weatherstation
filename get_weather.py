@@ -19,17 +19,9 @@ hourint=0
 
 startindex=0
 
-#t0=int(time.time())
-#while t0%10!=0:
-#   t0=int(time.time())
-#    time.sleep(1)
-#    print time.ctime()
-
-os.environ['TZ'] = 'US/Eastern'
-time.tzset()
-time.strftime('%X')
-
-
+ts = time.time()
+date = datetime.datetime.fromtimestamp(ts / 1e3)
+print date
 
 while True:
     char = webpage.read(1)
