@@ -21,7 +21,7 @@ startindex=0
 t0=int(time.time())
 while t0%10!=0:
     t0=int(time.time())
-    
+    print t0
 
 while True:
     char = webpage.read(1)
