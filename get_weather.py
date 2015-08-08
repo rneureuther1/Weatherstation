@@ -17,7 +17,11 @@ hourint=0
 
 
 startindex=0
+
 t0=int(time.time())
+while t0%10!=0:
+    t0=int(time.time())
+    
 
 while True:
     char = webpage.read(1)
