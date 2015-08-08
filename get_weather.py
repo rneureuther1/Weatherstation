@@ -7,6 +7,7 @@ import urllib
 import urllib2
 import sys
 import ast
+import os
 
 webpage = urllib2.urlopen('http://api.wunderground.com/api/5744462c8bb77ed7/hourly/q/28.600000,-81.199997.json')
 firstdigit="0"
@@ -24,8 +25,9 @@ startindex=0
 #    time.sleep(1)
 #    print time.ctime()
 
-localtime = time.asctime( time.localtime(time.time()) )
-print "Local current time :", localtime
+os.environ['TZ'] = 'US/Eastern'
+time.tzset()
+time.strftime('%X')
 
 
 
