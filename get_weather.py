@@ -18,11 +18,16 @@ hourint=0
 
 startindex=0
 
-t0=int(time.time())
-while t0%10!=0:
-    t0=int(time.time())
-    time.sleep(1)
-    print time.ctime()
+#t0=int(time.time())
+#while t0%10!=0:
+#   t0=int(time.time())
+#    time.sleep(1)
+#    print time.ctime()
+
+localtime = time.asctime( time.localtime(time.time()) )
+print "Local current time :", localtime
+
+
 
 while True:
     char = webpage.read(1)
