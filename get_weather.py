@@ -13,7 +13,7 @@ firstdigit="0"
 fullnumber="0"
 hourdigit1="0"
 hour="0"
-hourint
+hourint=0
 
 poplist[24]
 startindex=0
