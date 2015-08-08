@@ -55,12 +55,13 @@ while True:
                             fullnumber=firstdigit+test
                         else:
                             fullnumber=firstdigit
+                        convert = ast.literal_eval(fullnumber)
+                        convert = int(convert)
                         print fullnumber
 
 
-convert = ast.literal_eval(fullnumber)
-convert = int(convert)
-print "Last digit plus two is %d" %(convert+2)
+
+
 
 
 
