@@ -9,8 +9,14 @@ import sys
 import ast
 import os
 import datetime
+import serial
 
 webpage = urllib2.urlopen('http://api.wunderground.com/api/5744462c8bb77ed7/hourly/q/28.600000,-81.199997.json')
+try:
+    ser = serial.Serial('/dev/tty.usbserial', 9600)
+catch:
+    print "Serial Not Available"
+    
 # POP values
 firstdigit="0"
 fullnumber="0"
