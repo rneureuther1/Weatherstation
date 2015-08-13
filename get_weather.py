@@ -11,8 +11,11 @@ import os
 import datetime
 
 webpage = urllib2.urlopen('http://api.wunderground.com/api/5744462c8bb77ed7/hourly/q/28.600000,-81.199997.json')
+# POP values
 firstdigit="0"
 fullnumber="0"
+POPint="0"
+# Hour Values
 hourdigit1="0"
 hour="0"
 hourint=0
@@ -49,7 +52,7 @@ while True:
                         hourint=int(hourint)
                         print "The current hour is %d" %hourint
                    
-    # If we come across the "pop" element
+    # When we come across the "pop" element
     if char=='p':
         if webpage.read(1)=='o':
                 if webpage.read(1)=='p':
@@ -60,9 +63,9 @@ while True:
                             fullnumber=firstdigit+test
                         else:
                             fullnumber=firstdigit
-                        convert = ast.literal_eval(fullnumber)
-                        convert = int(convert)
-                        print fullnumber
+                        POPint = ast.literal_eval(fullnumber)
+                        POPint = int(POPint)
+                        print POPint
 
 
 
