@@ -6,7 +6,7 @@ Summer 2015
 Execute on TI Beaglebone Black. Use CronTab to schedule regular calls of this program
 
 """
-#Connect P9_24 to Rx of Photon
+#Connect P9_24 to Rx of Photon/Trinket
 import Adafruit_BBIO.GPIO as GPIO
 import time
 import json
