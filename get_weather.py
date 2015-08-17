@@ -34,7 +34,13 @@ try:
 catch:
     print "Serial Not Available"
 
-
+Photon.open()
+if Photon.isOpen():
+    print "Printing Serial"
+    Photon.write("Hi")
+    Photon.write("Hi")
+    Photon.write("Hi")
+Photon.close()
 
     
 # POP values
