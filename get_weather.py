@@ -1,5 +1,5 @@
 
-#!/usr/bin/python
+#Connect P9_24 to Rx of Photon
 import Adafruit_BBIO.GPIO as GPIO
 import time
 import json
@@ -11,11 +11,24 @@ import os
 import datetime
 import serial
 
+# Setup for Serial Tx to Photon
+import Adafruit_BBIO.UART as UART
+import serial
+import time 
+UART.setup("UART1")
+
+# Weather data webpage 
 webpage = urllib2.urlopen('http://api.wunderground.com/api/5744462c8bb77ed7/hourly/q/28.600000,-81.199997.json')
+
+
 try:
     ser = serial.Serial('/dev/tty.usbserial', 9600)
+    Photon = serial.Serial(port = "/dev/ttyO1", baudrate=9600)
 catch:
     print "Serial Not Available"
+
+
+
     
 # POP values
 firstdigit="0"
