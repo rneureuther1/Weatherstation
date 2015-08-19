@@ -7,34 +7,40 @@ void setup()
     
 //Serial setup
 Serial.begin(9600);
-
+pinMode(13, OUTPUT);
+digitalWrite(13, LOW);
 }
 
 void loop() 
 {
-String test = "";
-test=Serial.read();
+
+int test2;
+test2=Serial.read();
 
 // -1 connected, no data
 // 0 not connected
 // ## incoming data
 
-if(test=="-1")
+if(test2==-1)
 {
-    Serial.write("No Data, Sleeping...");
-    
-    delay(3000);
+    delay(5000);
 }
 
-else if(test=="0")
+else if(test2==0)
 {
-    Serial.write("Lost Connection");
-    //Make LED ring blink
+
 }
 
 else{
-    Serial.write(test);
-    delay(500);
+    // If data is recieved blink twice
+digitalWrite(13, HIGH);
+delay(500);
+digitalWrite(13, LOW);
+delay(500);
+digitalWrite(13, HIGH);
+delay(500);
+digitalWrite(13, LOW);
+    delay(3000);
 }
 
 }
