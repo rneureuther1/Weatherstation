@@ -59,6 +59,9 @@ void loop()
         blink(13, 2);
         // Update the pops array
         getData();
+        findRed();
+        findGreen();
+        findBlue();
     }
 
     }
