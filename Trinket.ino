@@ -57,6 +57,7 @@ void loop()
     else{
         // If data is recieved, blink twice
         blink(13, 2);
+        // Update the pops array
         getData();
     }
 
@@ -91,8 +92,6 @@ int findRed()
 {   
     for(int i=0, i<24, i++)
     {
-       
-        
         if(pops[i]<10)
         {
             red[i]=redmap[0];
@@ -126,10 +125,74 @@ int findRed()
 }
 int findGreen()
 {
+    for(int i=0; i<24; i++)
+    {
+        if(pops[i]<10)
+        {
+            green[i]=greenmap[0];
+        }
+        else if(pops[i]<20)
+        {
+            green[i]=greenmap[1];
+        }
+        else if(pops[i]<30)
+        {
+            green[i]=greenmap[2];
+        }
+        else if(pops[i]<40)
+        {
+            green[i]=greenmap[3];
+        }
+        else if(pops[i]<50)
+        {
+            green[i]=greenmap[4];
+        }
+        else if(pops[i]<60)
+        {
+            green[i]=greenmap[5];
+        }
+        else if(pops[i]>=60)
+        {
+            green[i]=greenmap[6];
+        }
+    }
+    
     
 }
 int findBlue()
 {
+     for(int i=0; i<24; i++)
+    {
+        if(pops[i]<10)
+        {
+            blue[i]=bluemap[0];
+        }
+        else if(pops[i]<20)
+        {
+            blue[i]=bluemap[1];
+        }
+        else if(pops[i]<30)
+        {
+            blue[i]=bluemap[2];
+        }
+        else if(pops[i]<40)
+        {
+            blue[i]=bluemap[3];
+        }
+        else if(pops[i]<50)
+        {
+            blue[i]=bluemap[4];
+        }
+        else if(pops[i]<60)
+        {
+            blue[i]=bluemap[5];
+        }
+        else if(pops[i]>=60)
+        {
+            blue[i]=bluemap[6];
+        }
+    }
+    
     
     
 }
