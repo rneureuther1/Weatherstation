@@ -63,7 +63,13 @@ void loop()
         findGreen();
         findBlue();
     }
-
+    
+    for(uint16_t i=0; i<strip.numPixels(); i++)
+    {
+        strip.setPixelColor(i, strip.Color(red[i], green[i], blue[i]));
+    }
+    
+    strip.show();
     }
 
 
