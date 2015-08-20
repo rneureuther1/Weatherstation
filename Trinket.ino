@@ -49,11 +49,9 @@ void loop()
     }
 
     else{
-        // If data is recieved blink twice
+        // If data is recieved, blink twice
         blink(13, 2);
-        
-        //Assign the POPs to the cooresponding indexes based on their hour
-        pop[serial.read()] = serial.read();
+        getData();
     }
 
     }
@@ -73,6 +71,14 @@ void blink(int pin, int times)
         delay(500);
     }
     
+}
+
+void getData()
+{
+     while(Serial.peek() != -1)
+     {
+     pop[Serial.read()] = Serial.read();
+     }
 }
 
 int findRed()
