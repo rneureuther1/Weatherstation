@@ -6,7 +6,7 @@ Summer 2015
 Execute on TI Beaglebone Black. Use CronTab to schedule regular calls of this program
 
 """
-#Connect P9_24 to Rx of Photon/Trinket
+#Connect P9_24 to Rx of Trinket
 import Adafruit_BBIO.GPIO as GPIO
 import time
 import json
@@ -18,7 +18,7 @@ import os
 import datetime
 import serial
 
-# Setup for Serial Tx to Photon
+# Setup for Serial Tx to Trinket
 import Adafruit_BBIO.UART as UART
 import serial
 import time 
@@ -30,17 +30,17 @@ webpage = urllib2.urlopen('http://api.wunderground.com/api/5744462c8bb77ed7/hour
 
 try:
     ser = serial.Serial('/dev/tty.usbserial', 9600)
-    Photon = serial.Serial(port = "/dev/ttyO1", baudrate=9600)
+    trinket = serial.Serial(port = "/dev/ttyO1", baudrate=9600)
 catch:
     print "Serial Not Available"
 
-Photon.open()
-if Photon.isOpen():
+trinket.open()
+if trinket.isOpen():
     print "Printing Serial"
-    Photon.write("Hi")
-    Photon.write("Hi")
-    Photon.write("Hi")
-Photon.close()
+    trinket.write("Hi")
+    trinket.write("Hi")
+    trinket.write("Hi")
+trinket.close()
 
     
 # POP values
