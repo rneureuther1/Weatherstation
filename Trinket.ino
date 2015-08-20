@@ -30,7 +30,7 @@ void setup()
     Serial.begin(9600);
     
     // Default values
-    for(int i=0; i<24, i++)
+    for(int i=0; i<24; i++)
     {
         pops[i]  = 100;
         red[i]   = 0;
