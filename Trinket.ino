@@ -12,6 +12,11 @@
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(24, PIN, NEO_GRB + NEO_KHZ800);
 
+int pops[23];
+int red[23];
+int green[23];
+int blue[23];
+
 void setup() 
 {   //Serial setup
     Serial.begin(9600);
@@ -27,9 +32,9 @@ void loop()
     int test;
     test=Serial.read();
 
-    // -1 connected, no data
-    // 0 not connected
-    // ## incoming data
+    // -1: connected, no data
+    //  0: not connected
+    //  #: incoming data
 
     if(test==-1)
     {
@@ -38,12 +43,13 @@ void loop()
 
     else if(test==0)
     {
-
+        // Blink the Ring Red on and off
     }
 
     else{
         // If data is recieved blink twice
         blink(13, 2);
+        
     }
 
     }
@@ -62,5 +68,20 @@ void blink(int pin, int times)
         digitalWrite(pin, LOW);
         delay(500);
     }
+    
+}
+
+int findRed(int h, int p)
+{
+    
+    
+}
+int findGreen(int h, int p)
+{
+    
+}
+int findBlue(int h, int p)
+{
+    
     
 }
