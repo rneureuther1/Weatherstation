@@ -65,6 +65,11 @@ void loop()
     else if(test==0)
     {
         // Blink the Ring Red on and off
+         for(uint16_t i=0; i<strip.numPixels(); i++)
+        {
+            strip.setPixelColor(i, strip.Color(100, 0, 0));
+        }
+        strip.show();
     }
 
     else
