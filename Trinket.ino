@@ -90,7 +90,7 @@ void getData()
 
 int findRed()
 {   
-    for(int i=0, i<24, i++)
+    for(int i=0; i<24; i++)
     {
         if(pops[i]<10)
         {
