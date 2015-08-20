@@ -12,6 +12,12 @@
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(24, PIN, NEO_GRB + NEO_KHZ800);
 
+// Fixed
+int redmap[]={0,0,140,50,250,255,255};
+int greenmap[]={240,160,0,50,0,0,0};
+int bluemap[]={175,240,255,205,220,190,0};
+
+//Dynamic
 int pops[23];
 int red[23];
 int green[23];
@@ -60,8 +66,8 @@ void loop()
 
 void blink(int pin, int times)
 {
-    int i;
-    for(i=0; i<times; i++)
+    
+    for(int i=0; i<times; i++)
     {
         digitalWrite(pin, LOW);
         delay(500);
@@ -77,13 +83,45 @@ void getData()
 {
      while(Serial.peek() != -1)
      {
-     pop[Serial.read()] = Serial.read();
+     pops[Serial.read()] = Serial.read();
      }
 }
 
 int findRed()
-{
-    
+{   
+    for(int i=0, i<24, i++)
+    {
+       
+        
+        if(pops[i]<10)
+        {
+            red[i]=redmap[0];
+        }
+        else if(pops[i]<20)
+        {
+            red[i]=redmap[1];
+        }
+        else if(pops[i]<30)
+        {
+            red[i]=redmap[2];
+        }
+        else if(pops[i]<40)
+        {
+            red[i]=redmap[3];
+        }
+        else if(pops[i]<50)
+        {
+            red[i]=redmap[4];
+        }
+        else if(pops[i]<60)
+        {
+            red[i]=redmap[5];
+        }
+        else if(pops[i]>=60)
+        {
+            red[i]=redmap[6];
+        }
+    }
     
 }
 int findGreen()
