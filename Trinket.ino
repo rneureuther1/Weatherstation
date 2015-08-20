@@ -12,23 +12,36 @@
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(24, PIN, NEO_GRB + NEO_KHZ800);
 
-// Fixed
+// Fixed maps define a 7 level color scheme: LBlue, Blue, LGreen, Green, Yellow, Orange, Red
 int redmap[]={0,0,140,50,250,255,255};
 int greenmap[]={240,160,0,50,0,0,0};
 int bluemap[]={175,240,255,205,220,190,0};
 
-//Dynamic
+// Dynamic arrays change with incoming weather data
+// Pops (Probability of Precipitation) stored by index based on cooresponding hour of day
 int pops[23];
 int red[23];
 int green[23];
 int blue[23];
 
 void setup() 
-{   //Serial setup
+{   
+    // Serial setup
     Serial.begin(9600);
+    
+    // Default values
+    for(int i=0; i<24, i++)
+    {
+        pops[i]  = 100;
+        red[i]   = 0;
+        green[i] = 0;
+        blue[i]  = 0;
+    }
+    
     pinMode(13, OUTPUT);
     digitalWrite(13, LOW);
 
+    
     strip.begin();
     strip.show(); // Initialize all pixels to 'off'
 }
@@ -54,41 +67,48 @@ void loop()
         // Blink the Ring Red on and off
     }
 
-    else{
-        // If data is recieved, blink twice
+    else
+    {
+        // If data is recieved, blink onboard Trinket LED twice
         blink(13, 2);
+        
         // Update the pops array
         getData();
+        
+        // Update the colors
         findRed();
         findGreen();
         findBlue();
-    }
+        
+        // Assign pixel colors
+        for(uint16_t i=0; i<strip.numPixels(); i++)
+        {
+            strip.setPixelColor(i, strip.Color(red[i], green[i], blue[i]));
+        }
     
-    for(uint16_t i=0; i<strip.numPixels(); i++)
-    {
-        strip.setPixelColor(i, strip.Color(red[i], green[i], blue[i]));
+        //Show colors
+        strip.show();
     }
-    
-    strip.show();
-    }
+}
 
 
-
+// Simple blink
 void blink(int pin, int times)
 {
     
     for(int i=0; i<times; i++)
     {
         digitalWrite(pin, LOW);
-        delay(500);
+        delay(100);
         digitalWrite(pin, HIGH);
-        delay(500);
+        delay(300);
         digitalWrite(pin, LOW);
-        delay(500);
+        delay(100);
     }
     
 }
 
+//Process incoming serial data from Beaglebone Black
 void getData()
 {
      while(Serial.peek() != -1)
@@ -97,6 +117,7 @@ void getData()
      }
 }
 
+//Assign colors based on the pop
 int findRed()
 {   
     for(int i=0; i<24; i++)
