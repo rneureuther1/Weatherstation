@@ -30,8 +30,10 @@ void setup()
 void loop() 
 {
     int test;
-    test=Serial.read();
+    test=Serial.peek();
 
+    //Beaglebone transmits data in the form of H(n) P(n) H(n+1) P(n+1)...starting with first hour available from
+    //      Wundergound site
     // -1: connected, no data
     //  0: not connected
     //  #: incoming data
@@ -50,6 +52,8 @@ void loop()
         // If data is recieved blink twice
         blink(13, 2);
         
+        //Assign the POPs to the cooresponding indexes based on their hour
+        pop[serial.read()] = serial.read();
     }
 
     }
@@ -71,16 +75,16 @@ void blink(int pin, int times)
     
 }
 
-int findRed(int h, int p)
+int findRed()
 {
     
     
 }
-int findGreen(int h, int p)
+int findGreen()
 {
     
 }
-int findBlue(int h, int p)
+int findBlue()
 {
     
     
