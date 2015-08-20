@@ -35,14 +35,7 @@ catch:
     print "Serial Not Available"
 
 trinket.open()
-if trinket.isOpen():
-    print "Printing Serial"
-    trinket.write("Hi")
-    trinket.write("Hi")
-    trinket.write("Hi")
-trinket.close()
 
-    
 # POP values
 firstdigit="0"
 fullnumber="0"
@@ -83,6 +76,7 @@ while True:
                         hourint=ast.literal_eval(hour)
                         hourint=int(hourint)
                         print "The current hour is %d" %hourint
+                        trinket.write(hourint)
                    
     # When we come across the "pop" element
     if char=='p':
@@ -98,9 +92,9 @@ while True:
                         POPint = ast.literal_eval(fullnumber)
                         POPint = int(POPint)
                         print POPint
-
+                        trinket.write(POPint)
     
-
+trinket.close()
     
 
 
