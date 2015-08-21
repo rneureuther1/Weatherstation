@@ -13,13 +13,13 @@
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(24, PIN, NEO_GRB + NEO_KHZ800);
 
 // Fixed maps define a 7 level color scheme: LBlue, Blue, LGreen, Green, Yellow, Orange, Red
-int redmap[]={0,0,140,50,250,255,255};
-int greenmap[]={240,160,0,50,0,0,0};
-int bluemap[]={175,240,255,205,220,190,0};
+int redmap[]={0,0,140,50,250,255,50};
+int greenmap[]={240,160,0,50,0,0,50};
+int bluemap[]={175,240,255,205,220,190,50};
 
 // Dynamic arrays change with incoming weather data
 // Pops (Probability of Precipitation) stored by index based on cooresponding hour of day
-int pops[23];
+int pops[58];
 int red[23];
 int green[23];
 int blue[23];
@@ -44,6 +44,9 @@ void setup()
     
     strip.begin();
     strip.show(); // Initialize all pixels to 'off'
+
+   startupAnimation();
+  
 }
 
 void loop() 
@@ -65,17 +68,31 @@ void loop()
     else if(test==0)
     {
         // Blink the Ring Red on and off
-         for(uint16_t i=0; i<strip.numPixels(); i++)
+         for(uint16_t i=0; i<24; i++)
         {
-            strip.setPixelColor(i, strip.Color(100, 0, 0));
+            strip.setPixelColor(i, strip.Color(30, 0, 90));
         }
         strip.show();
+
+        delay(1000);
+
+         for(uint16_t i=0; i<24; i++)
+        {
+            strip.setPixelColor(i, strip.Color(0, 0, 0));
+        }
+        strip.show();
+
+        delay(1000);
+
+        
     }
 
     else
     {
         // If data is recieved, blink onboard Trinket LED twice
-        blink(13, 2);
+        blink(13, 5);
+        // Allow data to keep coming in
+        delay(8000);
         
         // Update the pops array
         getData();
@@ -86,13 +103,19 @@ void loop()
         findBlue();
         
         // Assign pixel colors
-        for(uint16_t i=0; i<strip.numPixels(); i++)
+        for(uint16_t i=0; i<24; i++)
         {
             strip.setPixelColor(i, strip.Color(red[i], green[i], blue[i]));
         }
     
         //Show colors
         strip.show();
+        digitalWrite(13, LOW);
+
+        blink(13, 2);
+        delay(3000);
+
+       Serial.flush();
     }
 }
 
@@ -104,28 +127,31 @@ void blink(int pin, int times)
     for(int i=0; i<times; i++)
     {
         digitalWrite(pin, LOW);
-        delay(100);
+        delay(10);
         digitalWrite(pin, HIGH);
-        delay(300);
+        delay(50);
         digitalWrite(pin, LOW);
-        delay(100);
+        delay(10);
     }
-    
+    return;
 }
 
 //Process incoming serial data from Beaglebone Black
 void getData()
 {
-     while(Serial.peek() != -1)
-     {
-     pops[Serial.read()] = Serial.read();
+     for(int i=0; i<48; i++)
+      {
+        blink(13, 1);
+        pops[Serial.read()] = int(Serial.read());
+        delay(20);
      }
+     return;
 }
 
 //Assign colors based on the pop
 int findRed()
 {   
-    for(int i=0; i<24; i++)
+    for(int i=48; i<58; i++)
     {
         if(pops[i]<10)
         {
@@ -160,7 +186,7 @@ int findRed()
 }
 int findGreen()
 {
-    for(int i=0; i<24; i++)
+    for(int i=48; i<58; i++)
     {
         if(pops[i]<10)
         {
@@ -196,7 +222,7 @@ int findGreen()
 }
 int findBlue()
 {
-     for(int i=0; i<24; i++)
+     for(int i=48; i<58; i++)
     {
         if(pops[i]<10)
         {
@@ -227,7 +253,30 @@ int findBlue()
             blue[i]=bluemap[6];
         }
     }
-    
-    
-    
+}
+
+void startupAnimation()
+{
+ for(int i=0;i<24;i++){
+
+    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+    strip.setPixelColor(i, strip.Color(0,150,0)); // Moderately bright green color.
+
+    strip.show(); // This sends the updated pixel color to the hardware.
+
+    delay(50); // Delay for a period of time (in milliseconds).
+
+  }
+
+  for(int i=24;i>=0;i--){
+
+    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+    strip.setPixelColor(i, strip.Color(0,0,0)); 
+
+    strip.show(); // This sends the updated pixel color to the hardware.
+
+    delay(50); // Delay for a period of time (in milliseconds).
+
+  }
+  
 }
