@@ -13,16 +13,16 @@
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(24, PIN, NEO_GRB + NEO_KHZ800);
 
 // Fixed maps define a 7 level color scheme: LBlue, Blue, LGreen, Green, Yellow, Orange, Red
-int redmap[] = {0, 0, 140, 50, 250, 255, 50};
-int greenmap[] = {240, 160, 0, 50, 0, 0, 50};
-int bluemap[] = {175, 240, 255, 205, 220, 190, 50};
+int redmap[] = {0, 3, 140, 50, 250, 255, 255};
+int greenmap[] = {175, 130, 255, 205, 220, 190, 0};
+int bluemap[] = {240, 237, 0, 50, 0, 0, 0};
 
 // Dynamic arrays change with incoming weather data
 // Pops (Probability of Precipitation) stored by index based on cooresponding hour of day
-int pops[23];
-int red[23];
-int green[23];
-int blue[23];
+int pops[24];//={0,10,20,30,40,50,60,70,0,10,20,30,40,50,60,70,0,10,20,30,40,50,60,5};
+int red[24];
+int green[24];
+int blue[24];
 
 void setup()
 {
@@ -32,7 +32,7 @@ void setup()
   // Default values
   for (int i = 0; i < 24; i++)
   {
-    pops[i]  = 100;
+    //pops[i]  = 100;
     red[i]   = 0;
     green[i] = 0;
     blue[i]  = 0;
@@ -83,10 +83,6 @@ void loop()
     strip.show();
 
     delay(1000);
-
-    // Try to start serial back up
-    Serial.begin(9600);
-    delay(1000);
   }
 
   else
@@ -97,13 +93,13 @@ void loop()
     delay(8000);
 
     // Update the pops array
-    getData();
+   getData();
 
     // Update the colors
     findColors();
 
     // Assign pixel colors
-    for (uint16_t i = 1; i < 24; i++)
+    for (uint16_t i = 0; i < 24; i++)
     {
       strip.setPixelColor(i, strip.Color(red[i], green[i], blue[i]));
     }
@@ -145,7 +141,7 @@ void getData()
   int iteration=0;
   while (Serial.peek() > 0)
   {
-    blink(13,3);
+    blink(13,1);
     
     if (Serial.peek() == ';')
     {
@@ -156,13 +152,13 @@ void getData()
     }
 
     //Get the first hour digit
-    digit1 = Serial.read() - '0';
+    digit1 = (Serial.read() - '0');
 
     //If the hour has double digits, get the second digit
     if (Serial.peek() != ';')
     {
-      digit2 = Serial.read() - '0';
-      hour = (10 * digit1) + digit2;
+      digit2 = (Serial.read() - '0');
+      hour = ((10 * digit1) + digit2);
     }
     else
     {
@@ -181,13 +177,13 @@ void getData()
     trash = Serial.read();
 
     //Get the first pop digit
-    digit1 = Serial.read() - '0';
+    digit1 = (Serial.read() - '0');
 
     //If the pop has double digits, get the second digit
     if (Serial.peek() != ';')
     {
-      digit2 = Serial.read() - '0';
-      pop = (10 * digit1) + digit2;
+      digit2 = (Serial.read() - '0');
+      pop = ((10 * digit1) + digit2);
     }
     else
     {
