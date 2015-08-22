@@ -145,6 +145,8 @@ void getData()
   int iteration=0;
   while (Serial.available() > 0)
   {
+    blink(13,1);
+    
     if (Serial.peek() == ';')
     {
       // Get rid of the trash character
@@ -211,7 +213,7 @@ void getData()
 //Assign colors based on the pop
 int findRed()
 {
-  for (int i = 48; i < 58; i++)
+  for (int i = 0; i < 24; i++)
   {
     if (pops[i] < 10)
     {
@@ -246,7 +248,7 @@ int findRed()
 }
 int findGreen()
 {
-  for (int i = 48; i < 58; i++)
+  for (int i = 0; i < 24; i++)
   {
     if (pops[i] < 10)
     {
@@ -282,7 +284,7 @@ int findGreen()
 }
 int findBlue()
 {
-  for (int i = 48; i < 58; i++)
+  for (int i = 0; i < 24; i++)
   {
     if (pops[i] < 10)
     {
