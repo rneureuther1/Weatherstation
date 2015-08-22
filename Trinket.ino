@@ -57,7 +57,7 @@ void loop()
   //Beaglebone transmits data in the form of H(n) P(n) H(n+1) P(n+1)...starting with first hour available from
   //      Wundergound site
   // -1: connected, no data
-  //  0: not connected
+  //  0: signal lost
   //  #: incoming data
 
   if (test == -1)
@@ -168,7 +168,7 @@ void getData()
     }
 
     // We don't want to loop back over 24 hours in advance. We must store the current hour
-      // so that we dont go past it
+      // so that we dont go past it when scanning in the data
     if(iteration==0)
     {
       currenthour = hour;
@@ -192,14 +192,15 @@ void getData()
       pop = digit1;
     }
 
-    //Write the data we just collected if
+    //Write the data we just collected, so long as we are not looping back over 24 hours
     if(hour!=currenthour)
     {
-    pops[hour] = pop;
+      pops[hour] = pop;
     }
     else
     {
-      // We don't need more than 24 hours data, get out of the loop
+      // We don't need more than 24 hours data; clear the buffer and stop scanning
+      Serial.flush();
       break;
     }
 
