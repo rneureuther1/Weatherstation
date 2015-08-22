@@ -100,9 +100,7 @@ void loop()
     getData();
 
     // Update the colors
-    findRed();
-    findGreen();
-    findBlue();
+    findColors();
 
     // Assign pixel colors
     for (uint16_t i = 1; i < 24; i++)
@@ -223,110 +221,55 @@ void clearBuffer(){
    delay(1);
 }
 //Assign colors based on the pop
-int findRed()
+//Assign colors based on the pop
+int findColors()
 {
   for (int i = 0; i < 24; i++)
   {
     if (pops[i] < 10)
     {
       red[i] = redmap[0];
-    }
-    else if (pops[i] < 20)
-    {
-      red[i] = redmap[1];
-    }
-    else if (pops[i] < 30)
-    {
-      red[i] = redmap[2];
-    }
-    else if (pops[i] < 40)
-    {
-      red[i] = redmap[3];
-    }
-    else if (pops[i] < 50)
-    {
-      red[i] = redmap[4];
-    }
-    else if (pops[i] < 60)
-    {
-      red[i] = redmap[5];
-    }
-    else if (pops[i] >= 60)
-    {
-      red[i] = redmap[6];
-    }
-  }
-
-}
-int findGreen()
-{
-  for (int i = 0; i < 24; i++)
-  {
-    if (pops[i] < 10)
-    {
       green[i] = greenmap[0];
-    }
-    else if (pops[i] < 20)
-    {
-      green[i] = greenmap[1];
-    }
-    else if (pops[i] < 30)
-    {
-      green[i] = greenmap[2];
-    }
-    else if (pops[i] < 40)
-    {
-      green[i] = greenmap[3];
-    }
-    else if (pops[i] < 50)
-    {
-      green[i] = greenmap[4];
-    }
-    else if (pops[i] < 60)
-    {
-      green[i] = greenmap[5];
-    }
-    else if (pops[i] >= 60)
-    {
-      green[i] = greenmap[6];
-    }
-  }
-
-
-}
-int findBlue()
-{
-  for (int i = 0; i < 24; i++)
-  {
-    if (pops[i] < 10)
-    {
       blue[i] = bluemap[0];
     }
     else if (pops[i] < 20)
     {
+      red[i] = redmap[1];
+      green[i] = greenmap[1];
       blue[i] = bluemap[1];
     }
     else if (pops[i] < 30)
     {
+      red[i] = redmap[2];
+      green[i] = greenmap[2];
       blue[i] = bluemap[2];
     }
     else if (pops[i] < 40)
     {
+      red[i] = redmap[3];
+      green[i] = greenmap[3];
       blue[i] = bluemap[3];
     }
     else if (pops[i] < 50)
     {
+      red[i] = redmap[4];
+      green[i] = greenmap[4];
       blue[i] = bluemap[4];
     }
     else if (pops[i] < 60)
     {
+      red[i] = redmap[5];
+      green[i] = greenmap[5];
       blue[i] = bluemap[5];
     }
     else if (pops[i] >= 60)
     {
+      red[i] = redmap[6];
+      green[i] = greenmap[6];
       blue[i] = bluemap[6];
     }
   }
+
 }
 
 void startupAnimation()
