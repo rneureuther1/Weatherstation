@@ -48,10 +48,10 @@ void setup()
   startupAnimation();
 
 }
-
+int test;
 void loop()
 {
-  int test;
+  
   test = Serial.peek();
 
   //Beaglebone transmits data in the form of H(n) P(n) H(n+1) P(n+1)...starting with first hour available from
@@ -84,13 +84,15 @@ void loop()
 
     delay(1000);
 
-
+    // Try to start serial back up
+    Serial.begin(9600);
+    delay(1000);
   }
 
   else
   {
     // If data is recieved, blink onboard Trinket LED twice
-    blink(13, 5);
+    blink(13, 2);
     // Allow data to keep coming in
     delay(8000);
 
@@ -115,7 +117,7 @@ void loop()
     blink(13, 2);
     delay(3000);
 
-    Serial.flush();
+    clearBuffer();
   }
 }
 
@@ -127,11 +129,11 @@ void blink(int pin, int times)
   for (int i = 0; i < times; i++)
   {
     digitalWrite(pin, LOW);
-    delay(10);
-    digitalWrite(pin, HIGH);
     delay(50);
+    digitalWrite(pin, HIGH);
+    delay(150);
     digitalWrite(pin, LOW);
-    delay(10);
+    delay(50);
   }
   return;
 }
@@ -143,9 +145,9 @@ void getData()
   int hour, pop, currenthour;
   char trash;
   int iteration=0;
-  while (Serial.available() > 0)
+  while (Serial.peek() > 0)
   {
-    blink(13,1);
+    blink(13,3);
     
     if (Serial.peek() == ';')
     {
@@ -169,12 +171,12 @@ void getData()
       hour = digit1;
     }
 
+      blink(13,hour);
     // We don't want to loop back over 24 hours in advance. We must store the current hour
       // so that we dont go past it when scanning in the data
     if(iteration==0)
     {
       currenthour = hour;
-      iteration = 99;
     }
 
     // Now we know the next item in the buffer is a ';' so trash it
@@ -193,23 +195,33 @@ void getData()
     {
       pop = digit1;
     }
-
+      blink(13,pop);
     //Write the data we just collected, so long as we are not looping back over 24 hours
-    if(hour!=currenthour)
+    if(hour != currenthour || ((hour==currenthour) && (iteration==0)) )
     {
       pops[hour] = pop;
+      iteration++;
     }
     else
     {
       // We don't need more than 24 hours data; clear the buffer and stop scanning
-      Serial.flush();
+      clearBuffer();
       break;
     }
 
   }
+  
 }
 
-
+void clearBuffer(){
+   while (Serial.available() > 0)
+   {
+     char k = Serial.read();
+     
+     delay(1);
+   }
+   delay(1);
+}
 //Assign colors based on the pop
 int findRed()
 {
