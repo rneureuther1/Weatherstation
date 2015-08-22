@@ -171,7 +171,7 @@ void getData()
       hour = digit1;
     }
 
-      blink(13,hour);
+      
     // We don't want to loop back over 24 hours in advance. We must store the current hour
       // so that we dont go past it when scanning in the data
     if(iteration==0)
@@ -195,12 +195,12 @@ void getData()
     {
       pop = digit1;
     }
-      blink(13,pop);
+      
     //Write the data we just collected, so long as we are not looping back over 24 hours
     if(hour != currenthour || ((hour==currenthour) && (iteration==0)) )
     {
       pops[hour] = pop;
-      iteration++;
+      iteration=99;
     }
     else
     {
